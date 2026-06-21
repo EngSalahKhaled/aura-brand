@@ -99,13 +99,15 @@ export default function Navbar() {
   };
 
   const leftLinks = [
-    { name: "التشكيلة الجديدة", path: "/shop?collection=new" },
-    { name: "كل المنتجات", path: "/shop" },
+    { name: "التشكيلة الجديدة", path: "/shop" },
+    { name: "الفساتين", path: "/shop?category=dresses" },
+    { name: "الأطقم", path: "/shop?category=sets" },
   ];
 
   const rightLinks = [
-    { name: "قصتنا", path: "/about" },
-    { name: "تتبع الطلب", path: "/tracking" },
+    { name: "الأتيليه", path: "/about" },
+    { name: "آراء العملاء", path: "/reviews" },
+    { name: "تواصل معنا", path: "/contact" },
   ];
 
   return (
@@ -126,7 +128,7 @@ export default function Navbar() {
             </button>
 
             {/* Desktop Left Links */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-5 lg:gap-7">
               {leftLinks.map((link) => {
                 const isActive = pathname === link.path;
                 return (
@@ -161,7 +163,7 @@ export default function Navbar() {
           {/* RIGHT: Desktop links + Actions */}
           <div className="flex-1 flex items-center justify-end gap-4 md:gap-6">
             {/* Desktop Right Links */}
-            <nav className="hidden md:flex items-center gap-8 ml-8">
+            <nav className="hidden md:flex items-center gap-5 lg:gap-7 ml-4 lg:ml-8">
               {rightLinks.map((link) => {
                 const isActive = pathname === link.path;
                 return (
@@ -289,7 +291,7 @@ export default function Navbar() {
                 transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 <div className="flex justify-between items-center border-t border-brand-border/40 pt-8">
-                  <Link href="/account" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors">
+                  <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-text-secondary hover:text-text-primary transition-colors">
                     <User className="w-5 h-5 stroke-[1]" />
                     <span className="font-sans text-xs">حسابي</span>
                   </Link>

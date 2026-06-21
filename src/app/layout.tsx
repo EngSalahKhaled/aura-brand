@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { StoreProvider } from "@/context/StoreContext";
 import { NotificationProvider } from "@/context/NotificationContext";
 import Navbar from "@/components/layout/Navbar";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 // Lazy load Footer for faster initial page render (TTI)
 const Footer = dynamic(() => import("@/components/layout/Footer"), { ssr: true });
@@ -38,6 +39,7 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://aura-brand.com"),
   title: "AURA | دار الأزياء المصرية الراقية",
   description: "أورا - دار أزياء نسائية مصرية فاخرة تقدم مفهومًا متطورًا للأناقة والأنوثة العصرية بأيدي حرفية متقنة وتفاصيل فريدة.",
   keywords: ["AURA", "أورا", "أزياء نسائية", "كوتور", "ملابس فاخرة", "أزياء مصرية"],
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AURA | دار الأزياء المصرية الراقية",
     description: "تجسيد الفخامة والأناقة الهادئة بتصاميم عصرية.",
-    url: "https://aura-brand.com",
+    url: "/",
     siteName: "AURA",
     images: [
       {
@@ -57,6 +59,7 @@ export const metadata: Metadata = {
     ],
     locale: "ar_EG",
     type: "website",
+    countryName: "Egypt",
   },
   twitter: {
     card: "summary_large_image",
@@ -87,6 +90,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-grow">{children}</main>
             <Footer />
+            <WhatsAppButton />
             <ScrollToTop />
           </StoreProvider>
         </NotificationProvider>

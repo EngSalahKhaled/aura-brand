@@ -1,0 +1,60 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { MessageCircle, Mail, MapPin, Clock } from "lucide-react";
+import Button from "@/components/ui/Button";
+
+export const metadata: Metadata = {
+  title: "تواصلي معنا | AURA",
+  description: "تواصلي مع مستشارات دار AURA للاستفسار عن المنتجات، المقاسات، الطلبات الخاصة، وخدمات الأتيلييه.",
+};
+
+const contactItems = [
+  { icon: MessageCircle, title: "واتساب المستشارة", text: "+20 100 000 0000", href: "https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA%20AURA" },
+  { icon: Mail, title: "البريد الإلكتروني", text: "care@aura-brand.com", href: "mailto:care@aura-brand.com" },
+  { icon: MapPin, title: "أتيلييه AURA", text: "سان ستيفانو، الإسكندرية، مصر", href: "#atelier" },
+  { icon: Clock, title: "مواعيد العناية", text: "يوميًا من 11 صباحًا حتى 8 مساءً", href: "#hours" },
+];
+
+export default function ContactPage() {
+  return (
+    <div className="bg-background-primary min-h-screen">
+      <section className="w-full bg-background-secondary border-b border-brand-border py-16 md:py-24 text-center">
+        <div className="mx-auto max-w-[760px] px-6">
+          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.24em] text-accent">عناية AURA الخاصة</span>
+          <h1 className="mt-3 font-serif text-4xl md:text-6xl font-light text-text-primary">تواصلي معنا</h1>
+          <p className="mx-auto mt-4 max-w-xl font-sans text-sm font-light leading-relaxed text-text-secondary">
+            فريق AURA يرافقكِ في اختيار المقاس، تفاصيل الخامة، تنسيق الإطلالة، ومتابعة الطلب حتى لحظة الاستلام.
+          </p>
+        </div>
+      </section>
+
+      <main className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-6 py-14 md:grid-cols-[1fr_0.9fr] md:px-12 md:py-24">
+        <section className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          {contactItems.map(({ icon: Icon, title, text, href }) => (
+            <a key={title} href={href} className="border border-brand-border bg-background-secondary p-6 transition-colors duration-300 hover:border-accent">
+              <Icon className="h-5 w-5 text-accent stroke-[1.4]" aria-hidden="true" />
+              <h2 className="mt-5 font-sans text-sm font-bold text-text-primary">{title}</h2>
+              <p className="mt-2 font-sans text-xs font-light leading-relaxed text-text-secondary">{text}</p>
+            </a>
+          ))}
+        </section>
+
+        <section className="border border-brand-border bg-background-secondary p-7 md:p-8 text-right" dir="rtl">
+          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-accent">خدمة المقاسات</span>
+          <h2 className="mt-3 font-serif text-2xl font-light text-text-primary">هل تحتاجين مساعدة قبل الطلب؟</h2>
+          <p className="mt-4 font-sans text-sm font-light leading-[1.9] text-text-secondary">
+            أرسلي لنا اسم القطعة أو صورة المنتج، وسنساعدكِ في اختيار المقاس الأنسب وتأكيد مدة التجهيز والتسليم قبل الدفع.
+          </p>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA%20AURA" target="_blank" rel="noopener noreferrer">
+              <Button variant="primary">بدء محادثة واتساب</Button>
+            </a>
+            <Link href="/shop">
+              <Button variant="secondary">استكشاف التشكيلة</Button>
+            </Link>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}

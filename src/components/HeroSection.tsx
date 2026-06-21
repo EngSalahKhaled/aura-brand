@@ -35,7 +35,7 @@ export default function HeroSection() {
           fill
           priority
           quality={100}
-          className="object-cover object-[center_20%]"
+          className="object-cover object-[center_18%] sm:object-[center_20%]"
           sizes="100vw"
         />
         
@@ -58,11 +58,11 @@ export default function HeroSection() {
           className="flex items-center justify-center gap-3 mb-5 md:mb-6"
         >
           <span className="font-english text-[9px] md:text-[10px] text-white/90 tracking-[0.4em] uppercase">
-            NEW COLLECTION
+            AURA ATELIER
           </span>
           <span className="text-white/60 text-[10px]">|</span>
           <span className="font-sans text-[10px] md:text-[11px] text-white/90 font-medium">
-            التشكيلة الجديدة
+            تشكيلة محدودة
           </span>
         </motion.div>
 
@@ -77,7 +77,7 @@ export default function HeroSection() {
             wordSpacing: "0.05em"
           }}
         >
-          صُممت لأجلك
+          AURA صُممت لأجلك
         </motion.h1>
 
         {/* Supporting text */}
@@ -87,7 +87,7 @@ export default function HeroSection() {
           transition={{ duration: 1.2, delay: 1, ease: [0.25, 0.1, 0.25, 1] }}
           className="font-sans text-xs sm:text-sm md:text-base text-white/85 max-w-[280px] sm:max-w-md md:max-w-xl leading-[1.8] md:leading-[2] mb-10 md:mb-14 font-light"
         >
-          تجسيد حي للفخامة والأناقة الهادئة. تصاميم تعكس تفردك وتبرز أنوثتكِ بأسلوب كوتور عصري لا يُنسى.
+          تصميمات محدودة من أتيلييه AURA. قطع نسائية راقية تُراجع بعناية في المقاس والخامة قبل اعتماد الطلب.
         </motion.p>
 
         {/* Buttons */}
@@ -99,7 +99,7 @@ export default function HeroSection() {
         >
           <Link href="/shop" className="w-full sm:w-auto">
             <button className="relative overflow-hidden w-full sm:w-auto px-10 py-[14px] md:px-14 md:py-4 bg-white text-[#1a1a1a] border-[0.5px] border-white font-sans text-[10px] md:text-[11px] uppercase transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] hover:bg-transparent hover:text-white hover:border-white/60 group">
-              <span className="relative z-10 transition-transform duration-700 group-hover:scale-105 inline-block">اكتشفي المجموعة</span>
+              <span className="relative z-10 transition-transform duration-700 group-hover:scale-105 inline-block">تسوقي التشكيلة</span>
             </button>
           </Link>
           <Link href="/shop" className="w-full sm:w-auto">

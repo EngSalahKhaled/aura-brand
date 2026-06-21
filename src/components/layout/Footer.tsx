@@ -58,6 +58,7 @@ const navData = [
     links: [
       { label: "تتبع طلبكِ",        href: "/tracking"  },
       { label: "الشحن والتوصيل",    href: "/shipping"   },
+      { label: "الاستبدال والإرجاع", href: "/returns"    },
       { label: "الشروط والأحكام",   href: "/terms"      },
       { label: "سياسة الخصوصية",   href: "/privacy"    },
     ],
@@ -65,10 +66,10 @@ const navData = [
 ];
 
 const socials = [
-  { Icon: SocialIcons.Instagram, label: "Instagram" },
-  { Icon: SocialIcons.TikTok,    label: "TikTok"    },
-  { Icon: SocialIcons.Pinterest, label: "Pinterest"  },
-  { Icon: SocialIcons.Youtube,   label: "YouTube"   },
+  { Icon: SocialIcons.Instagram, label: "Instagram", href: "https://www.instagram.com/aurabrand.eg" },
+  { Icon: SocialIcons.TikTok,    label: "TikTok",    href: "https://www.tiktok.com/@aurabrand.eg" },
+  { Icon: SocialIcons.Pinterest, label: "Pinterest", href: "https://www.pinterest.com/aurabrandeg" },
+  { Icon: SocialIcons.Youtube,   label: "YouTube",   href: "https://www.youtube.com/@aurabrandeg" },
 ];
 
 /* ─────────────── Reusable animated link ─────────────── */
@@ -177,7 +178,7 @@ export default function Footer() {
               صالون أورا البريدي
             </span>
             <h3 className="font-serif text-lg md:text-xl font-light text-text-primary leading-snug">
-              نظرة حصرية قبل الإطلاق العام
+              دعوات خاصة وتحديثات الأتيلييه
             </h3>
             <form
               onSubmit={handleSubscribe}
@@ -249,8 +250,8 @@ export default function Footer() {
 
           {/* Social icons */}
           <div className="flex items-center gap-0">
-            {socials.map(({ Icon, label }) => (
-              <SocialIconButton key={label} href="#" label={label} size="md">
+            {socials.map(({ Icon, label, href }) => (
+              <SocialIconButton key={label} href={href} label={label} size="md">
                 <Icon />
               </SocialIconButton>
             ))}

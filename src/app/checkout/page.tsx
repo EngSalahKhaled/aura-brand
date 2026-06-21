@@ -8,7 +8,7 @@ import { useNotification } from "@/context/NotificationContext";
 import { LuxuryInput, LuxurySelect } from "@/components/ui/Form";
 import Button from "@/components/ui/Button";
 import { analytics } from "@/utils/analytics";
-import { CheckCircle, CreditCard, Landmark, Truck, ShieldAlert, Loader2, ArrowLeft, ArrowRight, Package } from "lucide-react";
+import { CheckCircle, Truck, ShieldAlert, Loader2, ArrowLeft, ArrowRight, Package } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function CheckoutPage() {
@@ -59,8 +59,8 @@ export default function CheckoutPage() {
   ];
 
   const paymentOptions = [
-    { value: "instapay", label: "InstaPay (إرسال رقم الحساب للتحويل الآمن)" },
-    { value: "vodafone-cash", label: "Vodafone Cash (محفظة فودافون كاش الذكية)" },
+    { value: "instapay", label: "InstaPay بعد مراجعة الطلب من مستشارة AURA" },
+    { value: "vodafone-cash", label: "Vodafone Cash بعد تأكيد المقاس والتوفر" },
   ];
 
   // Helper validation for steps
@@ -119,13 +119,13 @@ export default function CheckoutPage() {
 
     setIsSubmitting(true);
 
-    // Simulate luxury order submission
+    // Submit concierge order request
     setTimeout(() => {
       const orderId = `AURA-${Math.floor(10000 + Math.random() * 90000)}`;
       setGeneratedOrderId(orderId);
       
-      // Store in localStorage for Tracking Simulation page
-      const mockOrder = {
+      // Store the concierge request locally until backend order sync is connected
+      const conciergeOrder = {
         orderId,
         date: new Date().toLocaleDateString("ar-EG", { year: "numeric", month: "long", day: "numeric" }),
         customerName: `${form.firstName} ${form.lastName}`,
@@ -137,7 +137,7 @@ export default function CheckoutPage() {
         status: "received"
       };
       
-      localStorage.setItem(`aura_order_${orderId}`, JSON.stringify(mockOrder));
+      localStorage.setItem(`aura_order_${orderId}`, JSON.stringify(conciergeOrder));
       // Save order ID to active tracking list for easy tracking page loading
       localStorage.setItem("aura_last_order_id", orderId);
 
@@ -147,7 +147,7 @@ export default function CheckoutPage() {
       setIsSubmitting(false);
       setStep(4);
       clearCart();
-      showNotification("تم تسجيل طلبكِ بنجاح في وضع العرض التجريبي", "success");
+      showNotification("تم إرسال طلبكِ إلى مستشارة AURA بنجاح", "success");
     }, 2000);
   };
 
@@ -174,10 +174,10 @@ export default function CheckoutPage() {
       <section className="w-full bg-background-secondary py-12 border-b border-brand-border flex flex-col items-center">
         <div className="max-w-[720px] mx-auto px-6 text-center">
           <span className="font-sans text-[10px] text-accent font-bold uppercase">
-            مرحلة الشراء الفاخرة
+            طلب AURA الخاص
           </span>
           <h1 className="font-sans text-3xl font-light text-text-primary mt-2">
-            إتمام طلب الكوتور
+            إرسال طلب المراجعة
           </h1>
         </div>
       </section>
@@ -345,12 +345,12 @@ export default function CheckoutPage() {
             {step === 3 && (
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                 <h3 className="font-sans text-base font-bold text-text-primary mb-6 border-b border-brand-border pb-3 text-right">
-                  ٣. طريقة الدفع الفردية
+                  ٣. تفضيل الدفع بعد المراجعة
                 </h3>
                 <form onSubmit={handleFinalSubmit} className="flex flex-col gap-5 text-right" dir="rtl">
                   
                   <LuxurySelect
-                    label="اختر وسيلة الدفع للتحويل الآمن *"
+                    label="اختاري طريقة الدفع المفضلة بعد اعتماد الطلب *"
                     options={paymentOptions}
                     required
                     value={form.paymentMethod}
@@ -360,15 +360,15 @@ export default function CheckoutPage() {
                   <div className="bg-background-primary p-5 border border-brand-border flex flex-col gap-3">
                     <p className="font-sans text-xs text-text-secondary leading-relaxed">
                       {form.paymentMethod === "instapay"
-                        ? "تحويل مباشر وآمن عبر تطبيق InstaPay. عند إرسال الطلب، سيقوم منسق صالة العرض بالتواصل معكِ فوراً عبر الواتساب لتأكيد قياسات قوامكِ كوتور وإرسال بيانات حساب الدفع لإتمام عملية التحويل."
-                        : "دفع سريع عبر محفظة فودافون كاش الذكية. عند إرسال الطلب، سنرسل لكِ رسالة واتساب برقم المحفظة المعتمد للتحويل الفوري لتأكيد حجز القطع وتجهيز الشحن."}
+                        ? "سيتم مراجعة طلبكِ من مستشارة AURA أولاً للتأكد من المقاس والتوفر ومدة التجهيز، ثم تُرسل لكِ بيانات InstaPay المعتمدة لإتمام الدفع بأمان."
+                        : "بعد مراجعة المقاس والتوفر، ترسل لكِ مستشارة AURA رقم المحفظة المعتمد عبر واتساب لتأكيد حجز القطعة وتجهيزها للشحن."}
                     </p>
                     
                     <div className="border-t border-brand-border/60 pt-3 mt-1 flex items-start gap-2 text-[10px] text-accent leading-relaxed">
                       <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-bold block mb-0.5">ملاحظة وضع العرض التوضيحي (Demo Mode):</span>
-                        لم يتم ربط أي بوابات دفع حقيقية أو خصم أي مبالغ. عند تأكيد الطلب، سيتم محاكاة نجاح العملية وتسجيل الكود في ذاكرة المتصفح للتجربة.
+                        <span className="font-bold block mb-0.5">ملاحظة قبل اعتماد الدفع:</span>
+                        إرسال الطلب لا يخصم أي مبلغ تلقائياً. فريق AURA يراجع التفاصيل أولاً، ثم يؤكد وسيلة الدفع والموعد المتوقع عبر واتساب.
                       </div>
                     </div>
                   </div>
@@ -379,7 +379,7 @@ export default function CheckoutPage() {
                       <span>السابق</span>
                     </Button>
                     <Button variant="primary" type="submit" className="px-12">
-                      <span>تأكيد طلب الكوتور الفاخر</span>
+                      <span>إرسال الطلب للمراجعة</span>
                     </Button>
                   </div>
 
@@ -397,10 +397,10 @@ export default function CheckoutPage() {
                 <CheckCircle className="w-16 h-16 text-accent stroke-[1.2]" />
                 
                 <div className="flex flex-col gap-2">
-                  <span className="text-[10px] text-accent font-sans font-bold uppercase">طلبكِ قيد التجهيز الآن</span>
-                  <h3 className="font-sans text-2xl font-light text-text-primary">تم استلام طلبكِ بنجاح</h3>
+                  <span className="text-[10px] text-accent font-sans font-bold uppercase">طلبكِ وصل إلى مستشارة AURA</span>
+                  <h3 className="font-sans text-2xl font-light text-text-primary">تم إرسال طلب المراجعة بنجاح</h3>
                   <p className="text-xs text-text-secondary max-w-sm mt-1 leading-relaxed">
-                    شكراً لاختياركِ دار AURA للأزياء الراقية. لقد أرسلنا رسالة تفاصيل الشراء لبريدكِ الإلكتروني، وسيتواصل معكِ الأتيلييه عبر الواتساب لتأكيد المقاسات وتنسيق تفاصيل الدفع.
+                    شكراً لاختياركِ دار AURA للأزياء الراقية. سيتواصل معكِ فريق AURA عبر واتساب لتأكيد المقاسات، توفر القطعة، وبيانات الدفع قبل اعتماد الطلب نهائياً.
                   </p>
                 </div>
 
@@ -413,7 +413,7 @@ export default function CheckoutPage() {
                 {/* Details summary */}
                 <div className="w-full max-w-[500px] bg-background-primary border border-brand-border p-5 text-right flex flex-col gap-3 text-xs font-sans mt-2" dir="rtl">
                   <div className="flex justify-between border-b border-brand-border/60 pb-2 font-bold">
-                    <span>كود طلب الكوتور:</span>
+                    <span>رقم طلب المراجعة:</span>
                     <span className="text-accent text-sm font-display font-bold">{generatedOrderId}</span>
                   </div>
                   <div className="flex justify-between border-b border-brand-border/40 pb-2">
@@ -433,7 +433,7 @@ export default function CheckoutPage() {
                     <span>{form.paymentMethod === "instapay" ? "InstaPay" : "Vodafone Cash"}</span>
                   </div>
                   <div className="flex justify-between font-bold pt-1">
-                    <span>المبلغ المطلوب تأكيده:</span>
+                    <span>المبلغ قبل مراجعة المستشارة:</span>
                     <span className="text-accent text-sm">{cartSubtotal.toLocaleString()} ج.م</span>
                   </div>
                 </div>
@@ -443,7 +443,7 @@ export default function CheckoutPage() {
                     onClick={() => router.push(`/tracking?id=${generatedOrderId}`)}
                     className="inline-flex items-center justify-center bg-text-primary text-background-secondary font-sans text-xs min-h-[44px] hover:bg-accent transition-colors flex-grow cursor-pointer"
                   >
-                    تتبع طلبكِ المعتمد
+                    متابعة طلب المراجعة
                   </button>
                   <Link href="/shop" className="flex-grow">
                     <Button variant="secondary" className="w-full">مواصلة التسوق</Button>
